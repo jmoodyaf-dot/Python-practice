@@ -10,7 +10,7 @@ def show_menu():
     print('5. Exit')
 
 def add_task(tasks: dict):
-    task = input('What is your task?')
+    task = input('What is your task? ')
     tasks[task] = 'Incomplete'
     print('Task added')
 
@@ -22,11 +22,16 @@ def view_task(tasks: dict):
 
 def complete_task(tasks: dict):
     task_list = list(tasks.keys())
-    task_idx = int(input("Enter number of completed task")) -1
+    task_idx = int(input("Enter number of completed task: ")) -1
     comp_task = task_list[task_idx]
     tasks[comp_task] = "Complete"
-def delete_task():
-    pass
+
+def delete_task(tasks: dict):
+    task_list = list(tasks.keys())
+    task_idx = int(input("Enter the number of the task to be deleted: ")) -1
+    del_task = task_list[task_idx]
+    tasks.pop(del_task)
+
 def save(doc: str, tasks: dict):
 
     with open(doc, 'w') as file:
@@ -48,6 +53,7 @@ def questlog():
     tasks = {}
     load("tasks.txt", tasks)
     while True:
+        print('-' * 30)
         show_menu()
         action = input('Choose an Option: ')
 
