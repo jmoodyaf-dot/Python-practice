@@ -9,17 +9,32 @@ def show_menu():
     print('4. Delete Task')
     print('5. Exit')
 
-def add_task():
-    pass
-def view_task():
-    pass
-def complete_task():
-    pass
+def add_task(tasks: dict):
+    task = input('What is your task?')
+    tasks[task] = 'Incomplete'
+    print('Task added')
+
+def view_task(tasks: dict):
+    tsk_cnt = 1
+    for key, value in tasks.items():
+        print(f'{tsk_cnt}. {key}: {value}')
+        tsk_cnt +=1
+
+def complete_task(tasks: dict):
+    task_list = list(tasks.keys())
+    task_idx = int(input("Enter number of completed task")) -1
+    comp_task = task_list[task_idx]
+    tasks[comp_task] = "Complete"
 def delete_task():
     pass
-def save(file: str, tasks: dict):
-    pass
+def save(doc: str, tasks: dict):
+
+    with open(doc, 'w') as file:
+        for key, value in tasks.items():
+            file.write(key + ': ' + value + '\n')
+
 def load(doc: str, tasks: dict):
+    
     with open(doc, "r") as file:
         for line in file:
 
@@ -38,13 +53,13 @@ def questlog():
 
         match action:
             case '1':
-                view_task()
+                view_task(tasks)
             case '2':
                 add_task(tasks)
             case '3':
-                complete_task()
+                complete_task(tasks)
             case '4':
-                delete_task()
+                delete_task(tasks)
             case '5':
                 save("tasks.txt", tasks)
                 break
