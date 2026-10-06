@@ -1,3 +1,0 @@
-walk dog: Complete
-change tires: Complete
-fly kite: Incomplete
