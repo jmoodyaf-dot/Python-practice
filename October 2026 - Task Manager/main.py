@@ -11,6 +11,7 @@ def show_menu():
 
 def add_task(tasks: dict):
     task = input('What is your task? ')
+    print('')
     tasks[task] = 'Incomplete'
     print('Task added')
 
@@ -23,14 +24,23 @@ def view_task(tasks: dict):
 def complete_task(tasks: dict):
     task_list = list(tasks.keys())
     task_idx = int(input("Enter number of completed task: ")) -1
-    comp_task = task_list[task_idx]
-    tasks[comp_task] = "Complete"
+    try:
+        comp_task = task_list[task_idx]
+        tasks[comp_task] = "Complete"
+    except:
+        print('Invalid Input')
 
 def delete_task(tasks: dict):
     task_list = list(tasks.keys())
     task_idx = int(input("Enter the number of the task to be deleted: ")) -1
-    del_task = task_list[task_idx]
-    tasks.pop(del_task)
+    try:
+        del_task = task_list[task_idx]
+        tasks.pop(del_task)
+        print('')
+        print('Task Deleted')
+
+    except:
+        print('Invalid Input')
 
 def save(doc: str, tasks: dict):
 
@@ -56,16 +66,29 @@ def questlog():
         print('-' * 30)
         show_menu()
         action = input('Choose an Option: ')
+        print('')
 
         match action:
             case '1':
-                view_task(tasks)
+                if len(tasks) > 0 :
+                    view_task(tasks)
+                else:
+                    print('')
+                    print("No Available Tasks")
             case '2':
                 add_task(tasks)
             case '3':
-                complete_task(tasks)
+                if len(tasks) > 0:
+                 complete_task(tasks)
+                else:
+                    print('')
+                    print('No Available Tasks')
             case '4':
-                delete_task(tasks)
+                if len(tasks) > 0:
+                    delete_task(tasks)
+                else:
+                    print('')
+                    print('No Available Tasks')
             case '5':
                 save("tasks.txt", tasks)
                 break
